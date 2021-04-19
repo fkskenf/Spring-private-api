@@ -14,7 +14,8 @@ public class commonController {
 	//@ResponseBody (@RestController에 포함)
 	@RequestMapping(value = "test")
 	public String test(Map<String, Object> commandMap) throws Exception {
-		return "index";
+		System.out.println("hi");
+		return "hi";
 	}
 
 }
