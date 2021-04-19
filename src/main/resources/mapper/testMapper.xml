@@ -9,5 +9,11 @@
 	    FROM 
 	    	user
 	</select>
+	
+	<insert id="insert" parameterType="java.util.HashMap">
+	    INSERT INTO user(id,pw) 
+	    VALUES (#{id}, #{[pw]})
+	    	
+	</insert>
 </mapper>
 	
