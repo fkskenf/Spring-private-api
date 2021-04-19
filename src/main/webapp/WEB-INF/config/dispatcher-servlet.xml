@@ -9,18 +9,38 @@
 		
 	<!-- dispatch-servlet역할을 하는 파일  -->
 	
-	<!-- 특정 패키지 내의 클래스를 스캔하고 Annotation(@Component @Controller @Service @Repository)을 확인한 후 Bean 인스턴스로 생성한다.  -->
-	<!-- 패키지 내 Controller, Service, Repository 클래스의 auto detect를 위한 mvc 설정 -->
-	<context:component-scan base-package="com" use-default-filters="false">
+	<!--
+	[설명]
+	1. Bean이 될 수 있는 모든 Component들을 자동으로 찾아 Bean Container에 등록합니다.
+	2. 특정 패키지 안의 클래스들을 스캔하고, Annotation을 확인 후 Bean인스턴스를 생성합니다. 
+	3. Annotation(@Component @Controller @Service @Repository)이 존재해야 Bean을 스캔 후 생성할 수 있습니다.
+	
+	4. <context:include-filter>와 <context:exclude-filter> 태그를 같이 사용하면 자동 스캔 대상에 포함시킹 클래스와 제외할 클래스를 구체적으로 명시할수 있습니다.
+	5. use-default-filters="false"속성은 expression에 지정한 타입만 include 시켜줍니다.
+	-->
+	<context:component-scan base-package="com">
+		<!--  
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-<!--	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/> -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        -->
 	</context:component-scan>
 	
-	<!-- Annotation 활성화 -->
-	<mvc:annotation-driven></mvc:annotation-driven>
 	
-	<!-- 
+	<!--[설명]
+	1. Annotation 활성화
+	2. <context:component-scan>과 같이 명시해야합니다. 
+	-->
+	<mvc:annotation-driven></mvc:annotation-driven>
+     
+    <!-- 화면처리용 JSP 파일명의  prefix, suffix 처리에 대한 mvc 설정(jsp파일 공통 경로설정) -->
+    <bean
+    	class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1" 
+    	p:viewClass="org.springframework.web.servlet.view.JstlView" 
+    	p:prefix="/WEB-INF/jsp/" p:suffix=".jsp">
+   	</bean>
+   	
+   	<!-- 
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
@@ -36,15 +56,5 @@
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
     <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />    
      -->
-     
-    <!-- jsp파일 공통 경로설정  -->
-    <!-- 화면처리용 JSP 파일명의  prefix, suffix 처리에 대한 mvc 설정  -->
-    <bean
-    	class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1" 
-    	p:viewClass="org.springframework.web.servlet.view.JstlView" 
-    	p:prefix="/WEB-INF/jsp/" p:suffix=".jsp">
-   	</bean>
-		
-		
 </beans>
 		
