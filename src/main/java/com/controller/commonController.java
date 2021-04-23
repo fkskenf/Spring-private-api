@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,6 +59,18 @@ public class commonController {
 	// 3. VO test용
 	@GetMapping(value = "test3")
 	public ResponseEntity<?> test3(@RequestBody testVO vo) {
+		JhResult result = new JhResult();
+		vo.getId();
+		vo.getPw();
+
+		result = testService.testService2(vo);
+
+		return ResponseUtil.JhResponse(result);
+	}
+	
+	// 3. VO (POST시 직렬화문제)test용
+	@PostMapping(value = "test4")
+	public ResponseEntity<?> test4(@RequestBody testVO vo) {
 		JhResult result = new JhResult();
 		vo.getId();
 		vo.getPw();
