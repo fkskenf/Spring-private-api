@@ -30,7 +30,7 @@
 	<!-- 테스트용 트리거 -->
 	<bean id="testJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="testJob" />
-		<!-- CronTrigger를 사용하여 2분 간격으로 실행되도록 지정했습니다. -->
+		<!-- CronTrigger를 사용하여 2분 간격으로 실행되도록 지정했습니다.// -->
 		<property name="cronExpression" value="0 36 23 * * ?" />
 	</bean>
 
