@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.EnumType;
 import com.model.JhResult;
 import com.util.RequestUtil;
 import com.util.ResponseUtil;
@@ -78,17 +79,25 @@ public class commonController {
 		JhResult result = new JhResult();
 		vo.getId();
 		vo.getPw();
-
 		result = testService.testService2(vo);
 
 		return ResponseUtil.JhResponse(result);
 	}
 	
+	// 6. DI 테스트
 	@Test
 	@GetMapping(value = "injectionTest")
 	public void injecttionTest(HttpServletRequest request) {
 		bankService.bankMethod();
 	}
 	
+	// 7. enum 테스트
+	@GetMapping(value = "enumtest")
+	public void enumtest(HttpServletRequest request) {
+		System.out.println("Enum : " + EnumType.SUCESS.getNumValue());
+		System.out.println("Enum : " + EnumType.SUCESS.getCodeValue());
+		System.out.println("Enum : " + EnumType.FAIL.getNumValue());
+		System.out.println("Enum : " + EnumType.FAIL.getCodeValue());
+	}
 
 }
