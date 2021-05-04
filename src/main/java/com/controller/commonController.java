@@ -5,8 +5,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,17 +23,19 @@ import com.util.StringUtil;
 import com.vo.testVO;
 import com.service.*;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
-@RestController // RestController로 정의되어 있어야 jsp파일을 읽을 수 있다. (@Controller + @ResponseBody)
-//@Controller (@RestController에 포함) 
+//@CrossOrigin(origins = "*", maxAge = 3600)
+//@RestController // (@Controller + @ResponseBody)
+@Controller //(@RestController에 포함)Controller로 정의되어 있어야 jsp파일을 읽을 수 있다. 
 public class commonController {
 
 	// 서비스단과 열결하기 위한 객체선언 및 @Autowired설정
 	private final testService testService;
+	private final BankService bankService;
 
 	@Autowired
-	commonController(testService testService) {
+	commonController(testService testService, BankService bankService) {
 		this.testService = testService;
+		this.bankService = bankService;
 	}
 
 	// 1. HTTP URL test용
@@ -80,6 +84,11 @@ public class commonController {
 		return ResponseUtil.JhResponse(result);
 	}
 	
-	//4. Jhresult, Jhresponse test
+	@Test
+	@GetMapping(value = "injectionTest")
+	public void injecttionTest(HttpServletRequest request) {
+		bankService.bankMethod();
+	}
+	
 
 }
