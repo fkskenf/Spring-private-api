@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.EnumType;
+import com.enumType.EnumType;
 import com.model.JhResult;
 import com.util.RequestUtil;
 import com.util.ResponseUtil;
@@ -94,10 +94,31 @@ public class commonController {
 	// 7. enum 테스트
 	@GetMapping(value = "enumtest")
 	public void enumtest(HttpServletRequest request) {
-		System.out.println("Enum : " + EnumType.SUCESS.getNumValue());
-		System.out.println("Enum : " + EnumType.SUCESS.getCodeValue());
-		System.out.println("Enum : " + EnumType.FAIL.getNumValue());
-		System.out.println("Enum : " + EnumType.FAIL.getCodeValue());
+		System.out.println("EnumType[] values = EnumType.values()");
+		EnumType[] values = EnumType.values();
+		System.out.println();
+		
+		System.out.println("values[0] : " + values[0]);
+		System.out.println("values[0].ordinal() : " + values[0].ordinal());
+		System.out.println("EnumType.valueOf(\"SUCCESS\") : " + EnumType.valueOf("SUCCESS"));
+		System.out.println("EnumType.SUCESS.toString() : " + EnumType.SUCCESS.toString());
+		System.out.println();
+		
+		System.out.println("EnumType.SUCCESS.getNumValue() : " + EnumType.SUCCESS.getNumValue());
+		System.out.println("EnumType.SUCCESS.getListValue() : " + EnumType.SUCCESS.getListValue());
+		System.out.println();
+		
+		System.out.println("EnumType.FAIL.getNumValue() : " + EnumType.FAIL.getNumValue());
+		System.out.println("EnumType.FAIL.getListValue() : " + EnumType.FAIL.getListValue());
+		System.out.println();
+		
+		System.out.println("EnumType.findEnumType(\"Success0\") : " + EnumType.findEnumType("Success0"));
+		System.out.println("EnumType.findEnumType(\"Success1\") : " + EnumType.findEnumType("Success1"));
+		System.out.println("EnumType.findEnumType(\"Success2\") : " + EnumType.findEnumType("Success2"));
+		System.out.println("EnumType.findEnumType(\"False0\") : " + EnumType.findEnumType("False0"));
+		System.out.println("EnumType.findEnumType(\"False1\") : " + EnumType.findEnumType("False1"));
+		System.out.println("EnumType.findEnumType(\"False2\") : " + EnumType.findEnumType("False2"));
+		System.out.println("EnumType.findEnumType(\"\") : " + EnumType.findEnumType(""));
 	}
 
 }
