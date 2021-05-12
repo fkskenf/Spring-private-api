@@ -56,5 +56,11 @@
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
     <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />    
      -->
+     
+     <!-- 파일을 처리하기 위한 MultipartResolver 클래스를 bean으로 등록 -->
+     <!-- multipartResolver 인터페이스와 CommonsMultipartResolver 구현체 -->
+     <!-- 파일 업로드로 들어오는 데이터를 처리하는 객체 -->
+	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+	 
 </beans>
 		

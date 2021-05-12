@@ -44,7 +44,7 @@
 	<!-- HTTP url 패턴설정 -->
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
      
     <!-- 각종 xml파일 경로설정 --> 
