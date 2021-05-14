@@ -1,4 +1,4 @@
-package com.duzon.lulu.common.telegram;
+package com.telegram;
 
 import java.net.InetAddress;
 import java.util.HashMap;
