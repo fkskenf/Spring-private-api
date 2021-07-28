@@ -1,9 +1,7 @@
 package com.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
@@ -11,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.enumType.EnumType;
@@ -65,7 +61,8 @@ public class commonController {
 
 		newParam.put("id", StringUtil.fixNull(param.get("id")));
 		newParam.put("pw", StringUtil.fixNull(param.get("pw")));
-
+		System.out.println("test2");
+		
 		result = testService.testService(newParam);
 		return ResponseUtil.JhResponse(result);
 	}
