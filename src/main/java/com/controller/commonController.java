@@ -2,6 +2,8 @@ package com.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
@@ -32,6 +34,9 @@ public class commonController {
 	private final testService testService;
 	private final BankService bankService;
 	private final FileuploadService fileuploadService;
+	
+	@Autowired
+	private Properties properties;
 
 	@Autowired
 	commonController(testService testService, BankService bankService, FileuploadService fileuploadService) {
@@ -164,5 +169,15 @@ public class commonController {
 		
 		return "fileUpload";
 	}
+	
+	/*
+	 * globals.properites 테스트 
+	 */
+	@GetMapping(value = "globalsProperties") 
+	public void globalsProperties() throws Exception {
+		System.out.println("globals.PW= " + properties.getProperty("globals.ID"));
+		System.out.println("globals.PW= " + properties.getProperty("globals.PW"));
+	}
+
 
 }
