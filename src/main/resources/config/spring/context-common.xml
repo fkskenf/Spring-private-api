@@ -20,15 +20,17 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
      -->  				
+     
 	<bean id="encryptorConfig" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
 		<property name="algorithm" value="PBEWithMD5AndDES" />
-		<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" />
+		<!--  <property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" /> --> 
 	</bean>
      
 	<bean id="encryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
 		<property name="config" ref="encryptorConfig" />
 		<property name="password" value="test" />
 	</bean>
+	
      <!-- 환경설정 기본정보를 globals.properties 에서 참조하도록 propertyConfigurer 설정 -->
     <!-- xml 설정에서 사용. 자바에서는 따로 loader 구현해야함--> 
     <bean id="propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
@@ -43,5 +45,12 @@
     
 	<!-- java code에서 사용 -->
 	<util:properties id="properties" location="classpath:/conf/globals.properties"/>
+	
+	<!-- properties의 암호화문을 복호화 -->
+	  <bean id="propertySource" class="org.jasypt.spring31.properties.EncryptablePropertiesPropertySource">
+        <constructor-arg index="0" type="java.lang.String" value="encProperties"/>
+        <constructor-arg index="1" type="java.util.Properties" ref="properties"/>
+        <constructor-arg index="2" type="org.jasypt.encryption.StringEncryptor" ref="encryptor"/>
+    </bean>
 	
 </beans>

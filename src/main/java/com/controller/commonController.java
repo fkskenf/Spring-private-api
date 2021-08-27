@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jasypt.spring31.properties.EncryptablePropertiesPropertySource;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,9 @@ public class commonController {
 	
 	@Autowired
 	private Properties properties;
+	
+	@Autowired
+	private EncryptablePropertiesPropertySource propertySource;
 
 	@Autowired
 	commonController(testService testService, BankService bankService, FileuploadService fileuploadService) {
@@ -175,8 +179,10 @@ public class commonController {
 	 */
 	@GetMapping(value = "globalsProperties") 
 	public void globalsProperties() throws Exception {
-		System.out.println("globals.PW= " + properties.getProperty("globals.ID"));
+		System.out.println("globals.ID= " + properties.getProperty("globals.ID"));
 		System.out.println("globals.PW= " + properties.getProperty("globals.PW"));
+		
+		System.out.println("globals.SECURITY_KEY= " + propertySource.getProperty("globals.SECURITY_KEY"));
 	}
 
 
