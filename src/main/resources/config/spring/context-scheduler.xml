@@ -12,9 +12,10 @@
        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
- 	<!-- 컴포넌트 스캔 -->
+ 	<!-- 컴포넌트 스캔 
 	<context:component-scan base-package="com">
 	</context:component-scan>
+	--> 
 	
 	<!-- Annotation 활성화, <context:component-scan>과 같이 명시해야합니다. -->
 	
