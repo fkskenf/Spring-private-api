@@ -75,6 +75,23 @@ public class commonController {
 		result = testService.testService(newParam);
 		return ResponseUtil.JhResponse(result);
 	}
+	
+	/*
+	 * DB연동 @Transaction test
+	 */
+	@PostMapping(value = "test22")
+	public ResponseEntity<?> test22(HttpServletRequest request)throws Exception  {
+		JhResult result = new JhResult();
+		HashMap<String, Object> param = RequestUtil.paramToHashMap(request);
+		
+		HashMap<String, Object> newParam = new HashMap<String, Object>();
+		newParam.put("id", StringUtil.fixNull(param.get("id")));
+		newParam.put("pw", StringUtil.fixNull(param.get("pw")));
+		System.out.println("test22");
+		
+		result = testService.testService22(newParam);
+		return ResponseUtil.JhResponse(result);
+	}
 
 	/*
 	 * 3. VO test용

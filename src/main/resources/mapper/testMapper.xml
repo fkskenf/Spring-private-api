@@ -13,7 +13,13 @@
 	<insert id="insert" parameterType="java.util.HashMap">
 	    INSERT INTO user(id,pw) 
 	    VALUES (#{id}, #{[pw]})
-	    	
 	</insert>
+	
+	<update id="update" parameterType="java.util.HashMap">
+	     UPDATE user
+	     SET id =#{id}
+	     WHERE pw = '77'
+	</update>
+	
 </mapper>
 	

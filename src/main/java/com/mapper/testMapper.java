@@ -15,4 +15,8 @@ public class testMapper extends AbstractDAO{
 	public Object insert(HashMap<String,Object> param) {
 		return insert("mapper.testmapper.insert", param); 
 	}
+	
+	public Object update(HashMap<String,Object> param) {
+		return update("mapper.testmapper.update", param); 
+	}
 }

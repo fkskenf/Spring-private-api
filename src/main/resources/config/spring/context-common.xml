@@ -13,13 +13,12 @@
        					http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
        					http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
     
-    <!-- component-scan 설정
-	<context:component-scan base-package="com">
+    <!-- component-scan 설정 --> 
+	<context:component-scan base-package="com">  
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan>
-     -->  				
+	</context:component-scan>  				
      
 	<bean id="encryptorConfig" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
 		<property name="algorithm" value="PBEWithMD5AndDES" />
