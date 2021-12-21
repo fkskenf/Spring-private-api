@@ -21,5 +21,53 @@
 	     WHERE pw = '77'
 	</update>
 	
+	<select id="selectRootTree" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	    SELECT 
+	    	pk
+	    	, no
+	    	, parent_no
+	    	, sort
+	    FROM 
+	    	tree_table
+	    WHERE 
+	    	parent_no = '*'
+	</select>
+	
+	<select id="selectTree" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	  WITH RECURSIVE inc AS
+		(
+			SELECT 
+				pk
+		    	, no
+		    	, parent_no
+		    	, sort
+				, CAST(no AS CHAR) lvl
+			FROM 
+				tree_table
+			WHERE 
+				parent_no = '*'
+			UNION ALL
+			SELECT 
+				tt.pk
+		    	, tt.no
+		    	, tt.parent_no
+		    	, tt.sort
+				, CONCAT(inc.lvl, "," , tt.no) lvl
+			FROM 
+				tree_table tt
+			INNER JOIN 
+				inc
+			ON tt.parent_no = inc.no
+		)
+		SELECT 
+			inc.pk
+	    	, inc.no
+	    	, inc.parent_no
+	    	, inc.sort
+		FROM 
+			inc
+		ORDER BY lvl;
+	</select>
+	
 </mapper>
 	

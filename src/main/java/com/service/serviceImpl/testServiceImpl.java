@@ -1,17 +1,20 @@
 package com.service.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.model.JhResult;
+import com.util.EmptyUtil;
 import com.util.StringUtil;
 import com.vo.testVO;
 import com.service.*;
@@ -30,6 +33,8 @@ public class testServiceImpl implements testService {
 	testServiceImpl(testMapper testMapper) {
 		this.testMapper = testMapper;
 	}
+	
+	protected Logger logger = LogManager.getLogger(this.getClass());
 
 	// 2. DB연동 test용
 	public JhResult testService(HashMap<String, Object> param) {
@@ -49,8 +54,6 @@ public class testServiceImpl implements testService {
 	@Transactional(rollbackFor = {RuntimeException.class, Exception.class})
 	public JhResult testService22(HashMap<String, Object> param) throws Exception  {
 		HashMap<String, Object> newParam = new HashMap<String, Object>();
-		JhResult result = new JhResult();
-
 		newParam.put("id", StringUtil.fixNull(param.get("id")));
 		newParam.put("pw", StringUtil.fixNull(param.get("pw")));
 		System.out.print("테스트중");
@@ -80,6 +83,7 @@ public class testServiceImpl implements testService {
 	}
 	
 	// 3. Gson 테스트
+		@SuppressWarnings("rawtypes")
 		public JhResult testGson(testVO vo) {
 			HashMap<String, Object> newParam = new HashMap<String, Object>();
 			JhResult result = new JhResult();
@@ -109,6 +113,66 @@ public class testServiceImpl implements testService {
 			result.setResultData(newParam);
 			result.setResultCode(200);
 			return result;
+		}
+
+		public JhResult tree() {
+			JhResult result = new JhResult();
+			HashMap<String, Object> resultData = new HashMap<String, Object>();
+			
+			HashMap<String, Object> newParam = new HashMap<String, Object>();
+			List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
+
+			List<HashMap<String, Object>> rootList = new ArrayList<HashMap<String, Object>>();
+			rootList = testMapper.selectRootTree(newParam);
+			
+			if(!EmptyUtil.isEmpty(rootList)) 
+			{
+				List<HashMap<String, Object>> treeList = testMapper.selectTree(newParam);
+				int size = treeList.size();
+				
+				int idx = 0;
+				for(HashMap<String, Object> root : rootList) { //최상위 노드별 반복
+					idx = makeTree(root, treeList, size, idx);
+					resultList.add(root);
+				}
+			}
+			resultData.put("list", resultList);
+			result.setResultData(resultData);
+			result.setResultCode(200);
+			return result;
+		}
+		
+		@SuppressWarnings("unchecked")
+		private int makeTree(HashMap<String, Object> root, List<HashMap<String, Object>> treeList, int size, int idx) {
+			List<HashMap<String, Object>> child = null;
+			if(EmptyUtil.isEmpty(root.get("children"))) 
+			{
+				child = new ArrayList<HashMap<String, Object>>();
+				root.put("children", child);
+			}
+			else{
+				child = (List<HashMap<String, Object>>)root.get("children");
+			}
+			
+			String rootTreeNo = StringUtil.fixNull(root.get("no"),"0");
+			while(idx < size) {
+				HashMap<String, Object> tree = (HashMap<String, Object>) treeList.get(idx);
+				String treeNo =  StringUtil.fixNull(tree.get("no"),"0");
+				String pTreeNo = StringUtil.fixNull(tree.get("parent_no"),"0");
+				
+				if(rootTreeNo.equals(treeNo)) {
+					idx++;
+					continue;
+				}
+				else if(rootTreeNo.equals(pTreeNo)) {
+					child.add(tree);
+					idx = makeTree(tree, treeList, size, idx);
+				} 
+				else {
+					break;
+				}
+			}
+			return idx;
 		}
 
 }

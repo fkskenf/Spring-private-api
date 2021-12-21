@@ -19,4 +19,14 @@ public class testMapper extends AbstractDAO{
 	public Object update(HashMap<String,Object> param) {
 		return update("mapper.testmapper.update", param); 
 	}
+	
+	//최상위 노드 조회
+	public List<HashMap<String, Object>> selectRootTree(HashMap<String,Object> param) {
+		return selectList("mapper.testmapper.selectRootTree", param); 
+	}
+	
+	//트리 조회
+	public List<HashMap<String, Object>> selectTree(HashMap<String,Object> param) {
+		return selectList("mapper.testmapper.selectTree", param); 
+	}
 }

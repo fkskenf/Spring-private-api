@@ -6,16 +6,20 @@ import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jasypt.spring31.properties.EncryptablePropertiesPropertySource;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.enumType.EnumType;
@@ -26,9 +30,9 @@ import com.util.StringUtil;
 import com.vo.testVO;
 import com.service.*;
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
-//@RestController // (@Controller + @ResponseBody)
-@Controller //(@RestController에 포함)Controller로 정의되어 있어야 jsp파일을 읽을 수 있다. 
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController // (@Controller + @ResponseBody)
+//@Controller //(@RestController에 포함)Controller로 정의되어 있어야 jsp파일을 읽을 수 있다. 
 public class commonController {
 
 	// 서비스단과 열결하기 위한 객체선언 및 @Autowired설정
@@ -48,6 +52,8 @@ public class commonController {
 		this.bankService = bankService;
 		this.fileuploadService = fileuploadService;
 	}
+	
+	protected Logger logger = LogManager.getLogger(this.getClass());
 
 	/*
 	 * 1. HTTP URL test용
@@ -200,6 +206,18 @@ public class commonController {
 		System.out.println("globals.PW= " + properties.getProperty("globals.PW"));
 		
 		System.out.println("globals.SECURITY_KEY= " + propertySource.getProperty("globals.SECURITY_KEY"));
+	}
+	
+	/*
+	 * 계층구조 테스트
+	 */
+	@GetMapping(value = "tree") 
+	public ResponseEntity<?> tree() throws Exception {
+		JhResult result = new JhResult();
+		
+		result = testService.tree();
+
+		return ResponseUtil.JhResponse(result);
 	}
 
 

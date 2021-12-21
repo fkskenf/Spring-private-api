@@ -21,13 +21,13 @@
 	4. <context:include-filter>와 <context:exclude-filter> 태그를 같이 사용하면 자동 스캔 대상에 포함시킹 클래스와 제외할 클래스를 구체적으로 명시할수 있습니다.
 	5. use-default-filters="false"속성은 expression에 지정한 타입만 include 시켜줍니다.
 	-->
-	  <!-- 
+	  
 	<context:component-scan base-package="com">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>
-	 -->
+	 
 	<!--[설명]
 	1. Annotation 활성화
 	2. <context:component-scan>과 같이 명시해야합니다. 
