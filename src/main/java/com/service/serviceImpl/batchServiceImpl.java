@@ -1,7 +1,5 @@
 package com.service.serviceImpl;
 
-import java.util.HashMap;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service("batchService")
