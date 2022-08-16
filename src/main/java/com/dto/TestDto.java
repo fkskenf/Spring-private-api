@@ -17,6 +17,6 @@ public class TestDto {
 	private String firstName;
 	private String secondName;
 	
-	@JsonProperty("pluseMap")
-	private String pluseMap; 
+//	@JsonProperty("pluse_map")
+	private String pluseMap; // JSON Object를 stringify한 값
 }
